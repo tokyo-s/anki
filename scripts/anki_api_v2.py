@@ -42,6 +42,10 @@ def add_anki_card(
     """
     logger.info(f"Starting to add card {front_text}/{back_text} to deck: {deck_name}")
 
+    # clean front and back text
+    front_text = front_text.replace("„", "").replace("”", "")
+    back_text = back_text.replace("„", "").replace("”", "")
+
     try:
         # Create the length indicators for front and back text
         if len(front_text) < 128:
