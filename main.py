@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 # Import the Anki API functions
-from anki_api_v2 import add_anki_card, add_multiple_cards
+from scripts.anki_api_v2 import add_anki_card, add_multiple_cards
 
 # Load environment variables
 load_dotenv()
