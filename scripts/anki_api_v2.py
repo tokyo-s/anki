@@ -46,6 +46,10 @@ def add_anki_card(
     front_text = front_text.replace("„", "").replace("”", "")
     back_text = back_text.replace("„", "").replace("”", "")
 
+    # replace romanian diacritics with their base characters
+    front_text = front_text.replace("ă", "a").replace("ş", "s").replace("ţ", "t").replace("î", "i").replace("â", "a")
+    back_text = back_text.replace("ă", "a").replace("ş", "s").replace("ţ", "t").replace("î", "i").replace("â", "a")
+
     try:
         # Create the length indicators for front and back text
         if len(front_text) < 128:
