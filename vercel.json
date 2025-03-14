@@ -3,7 +3,7 @@
         { "src": "*.py", "use": "@vercel/python" }
       ],
       "redirects": [
-        { "source": "/", "destination": "/app.py" }
+        { "source": "/", "destination": "/main.py" }
       ]  
     
     }
