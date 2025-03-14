@@ -1,5 +1,13 @@
 import requests
 import time
+import logging
+
+# Set up basic logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger("anki-api")
 
 
 def add_anki_card(
@@ -32,6 +40,8 @@ def add_anki_card(
             - message (str): Success or error message
             - response (Response): The full response object
     """
+    logger.info(f"Starting to add card {front_text}/{back_text} to deck: {deck_name}")
+
     try:
         # Create the length indicators for front and back text
         if len(front_text) < 128:
@@ -402,110 +412,6 @@ def register_deck_format(deck_name, binary_suffix):
     print(f"Add an elif block for deck_name.lower() == '{deck_name.lower()}'")
     print(f"with binary_suffix = {binary_suffix}")
     return True
-
-
-def test_character_limits():
-    """
-    Test function to check if there are character limits for front and back text
-
-    This function tests various lengths of text to determine if there are any
-    limitations in the Anki API for the front and back text of cards.
-    """
-    print("\nTesting character limits:")
-
-    # Test with exactly 127 characters
-    back_text_127 = "A" * 127
-    print(f"Testing with 127 characters (len={len(back_text_127)})")
-    print(
-        f"Encoded as: chr({len(back_text_127)}) = {ord(chr(len(back_text_127)))} (decimal)"
-    )
-    result_127 = add_anki_card(
-        front_text="Test 127 chars",
-        back_text=back_text_127,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 127 chars: {'Success' if result_127['success'] else 'Failed'}")
-
-    # Test with exactly 128 characters
-    back_text_128 = "A" * 128
-    print(f"Testing with 128 characters (len={len(back_text_128)})")
-    print(
-        f"Encoded as: chr(128 + {len(back_text_128) % 128}) + chr({len(back_text_128) // 128}) = {ord(chr(128 + (len(back_text_128) % 128)))} and {ord(chr(len(back_text_128) // 128))} (decimal)"
-    )
-    result_128 = add_anki_card(
-        front_text="Test 128 chars",
-        back_text=back_text_128,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 128 chars: {'Success' if result_128['success'] else 'Failed'}")
-
-    # Test with 129 characters
-    back_text_129 = "A" * 129
-    print(f"Testing with 129 characters (len={len(back_text_129)})")
-    print(
-        f"Encoded as: chr(128 + {len(back_text_129) % 128}) + chr({len(back_text_129) // 128}) = {ord(chr(128 + (len(back_text_129) % 128)))} and {ord(chr(len(back_text_129) // 128))} (decimal)"
-    )
-    result_129 = add_anki_card(
-        front_text="Test 129 chars",
-        back_text=back_text_129,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 129 chars: {'Success' if result_129['success'] else 'Failed'}")
-
-    # Test with 255 characters
-    back_text_255 = "A" * 255
-    print(f"Testing with 255 characters (len={len(back_text_255)})")
-    print(
-        f"Encoded as: chr(128 + {len(back_text_255) % 128}) + chr({len(back_text_255) // 128}) = {ord(chr(128 + (len(back_text_255) % 128)))} and {ord(chr(len(back_text_255) // 128))} (decimal)"
-    )
-    result_255 = add_anki_card(
-        front_text="Test 255 chars",
-        back_text=back_text_255,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 255 chars: {'Success' if result_255['success'] else 'Failed'}")
-
-    # Test with 256 characters
-    back_text_256 = "A" * 256
-    print(f"Testing with 256 characters (len={len(back_text_256)})")
-    print(
-        f"Encoded as: chr(128 + {len(back_text_256) % 128}) + chr({len(back_text_256) // 128}) = {ord(chr(128 + (len(back_text_256) % 128)))} and {ord(chr(len(back_text_256) // 128))} (decimal)"
-    )
-    result_256 = add_anki_card(
-        front_text="Test 256 chars",
-        back_text=back_text_256,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 256 chars: {'Success' if result_256['success'] else 'Failed'}")
-
-    # Test with 260 characters
-    back_text_260 = "A" * 260
-    print(f"Testing with 260 characters (len={len(back_text_260)})")
-    print(
-        f"Encoded as: chr(128 + {len(back_text_260) % 128}) + chr({len(back_text_260) // 128}) = {ord(chr(128 + (len(back_text_260) % 128)))} and {ord(chr(len(back_text_260) // 128))} (decimal)"
-    )
-    result_260 = add_anki_card(
-        front_text="Test 260 chars",
-        back_text=back_text_260,
-        deck_name="test",
-        verbose=True,
-    )
-    print(f"Result with 260 chars: {'Success' if result_260['success'] else 'Failed'}")
-
-    return {
-        "127_chars": result_127,
-        "128_chars": result_128,
-        "129_chars": result_129,
-        "255_chars": result_255,
-        "256_chars": result_256,
-        "260_chars": result_260,
-    }
-
 
 # Example usage
 if __name__ == "__main__":
