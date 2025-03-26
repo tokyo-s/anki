@@ -123,7 +123,7 @@ def add_anki_card(
                     ord("2"),
                 ]
             )
-        elif deck_name.lower() == "ai_facts":
+        elif deck_name.lower() == "AI":
             binary_suffix = bytes(
                 [
                     26,
@@ -165,7 +165,7 @@ def add_anki_card(
                     ord("2"),
                 ]
             )
-        elif deck_name.lower() == "it":
+        elif deck_name.lower() == "software_engineering":
             binary_suffix = bytes(
                 [
                     26,
@@ -183,27 +183,6 @@ def add_anki_card(
                     136,
                     170,
                     198,
-                    ord("2"),
-                ]
-            )
-        elif deck_name.lower() == "transformers":
-            binary_suffix = bytes(
-                [
-                    26,
-                    14,
-                    8,
-                    177,
-                    246,
-                    164,
-                    207,
-                    197,
-                    ord("2"),
-                    16,
-                    193,
-                    251,
-                    172,
-                    215,
-                    208,
                     ord("2"),
                 ]
             )
